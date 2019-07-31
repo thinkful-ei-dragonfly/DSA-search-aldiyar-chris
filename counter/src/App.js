@@ -31,27 +31,31 @@ class App extends React.Component {
   };
 
   getResultBinary = (array, value, start = 0, end = array.length - 1, count = 0) => {
-    if (start > end) return -1; 
+    let sorted = array.sort();
+    if (start > end) return -1;
+    //find the midpoint and the item at the midpoint
     let index = Math.floor((start + end) / 2);
-    let item = array[index];
-    console.log(start, end)
-    console.log(index);
+    let item = sorted[index];
+    console.log(sorted);
+    this.setState({
+      result: count+1
+    })
     
-
+    //if the middle element is the target them return that location
     if (item === value) {
-      this.setState({
-        result: index
-      })
-      return;
+      console.log('this is last step')
+        return index;
     }
-
+    //if the middle element is less than the target then the target lies 
+    //on the right side so eliminate all left side and only 
+    //consider after the middle to the end of the array
     else if (item < value) {
-      count++
-      return this.getResultBinary(array, value, index + 1, end);
+        return this.getResultBinary(sorted, value, index + 1, end, count+1);
     }
+    //if the middle element is greater than the target then the 
+    //target is on the left side so the left of the middle 
     else if (item > value) {
-      count++
-      return this.getResultBinary(array, value, start, index - 1);
+        return this.getResultBinary(sorted, value, start, index - 1, count+1);
     }
   }
 
