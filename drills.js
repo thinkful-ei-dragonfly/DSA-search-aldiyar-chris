@@ -4,7 +4,8 @@
 // Given a sorted list 3, 5, 6, 8, 11, 12, 14, 15, 17, 18 and are using the recursive binary search algorithm. Identify the sequence of numbers that each recursive call will search to find 8.
 
 // Given a sorted list 3, 5, 6, 8, 11, 12, 14, 15, 17, 18 and are using the recursive binary search algorithm. Identify the sequence of numbers that each recursive call will search to find 16?
-const arr = [3,5,6,8,11,12,14,15,17,18];
+const arr = [3, 5, 6, 8, 11, 12, 14, 15, 17, 18];
+
 function indexOf(array, value) {
   for (let i = 0; i < array.length; i++) {
     if (array[i] === value) {
@@ -33,7 +34,7 @@ function binarySearch(array, value, start, end) {
   var end = end === undefined ? array.length : end;
 
   if (start > end) {
-      return -1;
+    return -1;
   }
 
   const index = Math.floor((start + end) / 2);
@@ -41,13 +42,11 @@ function binarySearch(array, value, start, end) {
 
   console.log(start, end);
   if (item == value) {
-      return index;
-  }
-  else if (item < value) {
-      return binarySearch(array, value, index + 1, end);
-  }
-  else if (item > value) {
-      return binarySearch(array, value, start, index - 1);
+    return index;
+  } else if (item < value) {
+    return binarySearch(array, value, index + 1, end);
+  } else if (item > value) {
+    return binarySearch(array, value, start, index - 1);
   }
 };
 
@@ -63,15 +62,13 @@ function deweyDecimal(array, dewey, start, end, title) {
   const item = array[index];
   if (item == dewey) {
     if (item.title = title) {
-    return index;
+      return index;
     }
-}
-else if (item < dewey) {
+  } else if (item < dewey) {
     return deweyDecimal(array, dewey, index + 1, end, title);
-}
-else if (item > dewey) {
+  } else if (item > dewey) {
     return deweyDecimal(array, dewey, start, index - 1, title);
-}
+  }
 }
 
 //         35
@@ -80,20 +77,20 @@ else if (item > dewey) {
 // 14  19    79
 
 //4. Searching in BST 
-  //Part One
-  //14 15 19 25 27 35 79 89 90 91 in order
-  //35 25 15 14 19 27 89 79 91 90 pre order
-  //14 19 15 27 25 79 89 90 91 35 post order
+//Part One
+//14 15 19 25 27 35 79 89 90 91 in order
+//35 25 15 14 19 27 89 79 91 90 pre order
+//14 19 15 27 25 79 89 90 91 35 post order
 
-  //Part Two 
-  //5 7 6 9 11 10 8 pre order
-          // 5
-          //   7
-          // 6   9
-          //   8   11
-          //     10
-            
-  //6 8 10 11 9 7 5
+//Part Two 
+//5 7 6 9 11 10 8 pre order
+// 5
+//   7
+// 6   9
+//   8   11
+//     10
+
+//6 8 10 11 9 7 5
 
 //5. 
 
@@ -107,45 +104,47 @@ function findBSTHeight(t) {
     if (leftHeight > height) {
       height = leftHeight;
     }
-  } if (t.right) {
+  }
+  if (t.right) {
     let rightHeight = 1 + findBSTHeight(t.right);
     if (rightHeight > height) {
       height = rightHeight;
     }
-  } if (!t.left && !t.right) {
+  }
+  if (!t.left && !t.right) {
     height = 1;
   }
   return height;
 }
 
-function dsfPreOrder(tree){
+function dsfPreOrder(tree) {
   // Pre-order
   console.log(tree.key);
   if (tree.left) {
-      dsfPreOrder(tree.left);
+    dsfPreOrder(tree.left);
   }
   if (tree.right) {
-      dsfPreOrder(tree.right);
+    dsfPreOrder(tree.right);
   }
 }
 
 function dsfPostOrder(tree) {
   if (tree.left) {
-      dsfPostOrder(tree.left);
+    dsfPostOrder(tree.left);
   }
   if (tree.right) {
-      dsfPostOrder(tree.right);
+    dsfPostOrder(tree.right);
   }
   console.log(tree.key);
 }
 
 function dsfInOrder(tree) {
   if (tree.left) {
-      dsfInOrder(tree.left);
+    dsfInOrder(tree.left);
   }
   console.log(tree.key);
   if (tree.right) {
-      dsfInOrder(tree.right);
+    dsfInOrder(tree.right);
   }
 }
 
@@ -159,21 +158,42 @@ function enterpriseSort(tree, values = []) {
   const node = tree;
   queue.enqueu(node);
   while (queue.length) {
-      const node = queue.dequeu(); //remove from the queue
-      values.push(node.value); // add that value from the queue to an array
+    const node = queue.dequeu(); //remove from the queue
+    values.push(node.value); // add that value from the queue to an array
 
-      console.log(node.left)
-      if (node.left) {
-          queue.enqueu(node.left); //add left child to the queue
-      }
+    console.log(node.left)
+    if (node.left) {
+      queue.enqueu(node.left); //add left child to the queue
+    }
 
-      if (node.right) {
-          queue.enqueu(node.right); // add right child to the queue
-      }
+    if (node.right) {
+      queue.enqueu(node.right); // add right child to the queue
+    }
   }
 
   return values;
 }
+
+
+// Question 7
+let tradingStats = [128, 122, 121, 123, 98, 97, 105];
+
+function findBestDay(array) {
+  let max = 0;
+  let current;
+  let day;
+  for (let i = 0; i < array.length; i++) {
+    current = array[i + 1] - array[i];
+    if (current > max) {
+      max = current;
+      day = i+1;
+    }
+  }
+
+  return `Day ${day} was the best, profit was ${max}`;
+}
+
+console.log(findBestDay(tradingStats));
 
 
 function main() {
@@ -210,4 +230,4 @@ function main() {
   console.log(enterpriseSort(enterprise))
 }
 
-main();
+// main();
