@@ -32,7 +32,12 @@ class App extends React.Component {
 
   getResultBinary = (array, value, start = 0, end = array.length - 1, count = 0) => {
     let sorted = array.sort();
-    if (start > end) return -1;
+    if (start > end) {
+      this.setState({
+        result: 'The number you looked for is not in the dataset'
+      })
+      return -1;
+    };
     //find the midpoint and the item at the midpoint
     let index = Math.floor((start + end) / 2);
     let item = sorted[index];
@@ -59,6 +64,22 @@ class App extends React.Component {
     }
   }
 
+  renderResults = () => {
+    if (typeof this.state.result === 'number') {
+      return (
+        <>
+        <h3>It took {this.state.result} steps to find {this.state.searchTerm}</h3>
+        </>
+      )
+    }
+    else {
+      return (
+        <>
+        <h3>{this.state.result}</h3>
+        </>
+      )
+    }
+  }
 
 
   render() {
@@ -78,7 +99,7 @@ class App extends React.Component {
           <button onClick={e => this.getResultBinary(array, searchTerm)} > Search Binary </button>
         </div> 
         <div className='result'>
-          <h3>It took {this.state.result} steps to find {this.state.searchTerm}</h3>
+          {this.renderResults()}
         </div>
       </header>
 
